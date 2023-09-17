@@ -30,11 +30,11 @@ let target = document.getElementById("target");
 let outer = document.createElement("div");
 outer.classList.add("vh-100", "d-flex", "align-items-center");
 let container = document.createElement("div");
-container.classList.add("bg-pink", "col-12");
+container.classList.add("bg-pink", "col-12", "d-flex", "flex-wrap", "align-items-center");
 
-// right container
+// left container
 let sliderContainer = document.createElement("div");
-sliderContainer.classList.add("col-12", "py-2");
+sliderContainer.classList.add("col-12", "col-md-6", "py-2");
 let sliderShow = document.createElement("div");
 sliderShow.classList.add("col-12", "d-flex", "flex-nowrap");
 
@@ -58,9 +58,9 @@ sliderContainer.append(sliderShow);
 container.append(sliderContainer);
 
 
-//left container
+// right container
 let divContainer = document.createElement("div");
-divContainer.classList.add("col-12");
+divContainer.classList.add("col-12", "col-md-5");
 
 let infoContainer = document.createElement("div");
 infoContainer.classList.add("col-12");
@@ -76,8 +76,25 @@ infoContainer.append(nameP);
 infoContainer.append(stadiumP);
 divContainer.append(infoContainer);
 
-let btnContainer = document.createElement("div");
+main.setAttribute("data-index", "0");
 
+function createButtons() {
+    let btnContainer = document.createElement("div");
+    btnContainer.classList.add("d-flex", "flex-wrap");
+    for (let i=1; i<teams.length; i++) {
+        let btnDiv = document.createElement("div");
+        btnDiv.classList.add("col-3", "p-2");
+        let btn = document.createElement("button");
+        btn.classList.add("col-12", "btn", "btn-light");
+        btn.innerHTML = i;
+
+        btnDiv.append(btn);
+        btnContainer.append(btnDiv);
+    }
+    divContainer.append(btnContainer);
+}
+
+createButtons();
 container.append(divContainer);
 outer.append(container);
 target.append(outer);
