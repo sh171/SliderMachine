@@ -62,7 +62,7 @@ container.append(sliderContainer);
 let divContainer = document.createElement("div");
 divContainer.classList.add("col-12", "col-md-5");
 let infoContainer = document.createElement("div");
-infoContainer.classList.add("col-12");
+infoContainer.classList.add("col-12", "px-2");
 
 let nameP = document.createElement("p");
 let stadiumP = document.createElement("p");
@@ -93,12 +93,21 @@ function sliderJump(i) {
     `
 
     main.setAttribute("data-index", nextIndex.toString());
-    console.log(currIndex);
-    console.log(nextIndex);
+
     // return String of left or right for rotating number of array
     let animatinType = getAnimationType(currIndex, nextIndex, teams.length);
     animation(currElement, nextElement, animatinType);
+    updateInfo(teams[nextIndex]);
+}
 
+function updateInfo(nextInfo) {
+    nameP.innerHTML = "";
+    stadiumP.innerHTML = "";
+
+    nameP.classList.remove("text-center", "bold");
+
+    nameP.innerHTML = "Name : " + nextInfo.teamName + " " + "(Founded" + nextInfo.founded + ")";
+    stadiumP.innerHTML = "Stadium : " + nextInfo.stadium + " " + "(" + nextInfo.location + ")";
 }
 
 function animation(currElement, nextElement, animation) {
@@ -107,6 +116,20 @@ function animation(currElement, nextElement, animation) {
 
     main.append(nextElement);
     extra.append(currElement);
+
+    main.classList.add("expand-animation");
+    extra.classList.add("deplete-animation");
+
+    if (animation === "left") {
+        sliderShow.innerHTML = "";
+        sliderShow.append(main);
+        sliderShow.append(extra);
+    }
+    else if (animation === "right") {
+        sliderShow.innerHTML = "";
+        sliderShow.append(extra);
+        sliderShow.append(main);
+    }
 }
 
 function getAnimationType(curr, next, len) {
