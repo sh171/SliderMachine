@@ -42,6 +42,7 @@ let main = document.createElement("div");
 let extra = document.createElement("div");
 
 main.classList.add("full-width");
+main.setAttribute("data-index", "0");
 extra.classList.add("full-width");
 
 let imgDiv = document.createElement("div");
@@ -57,11 +58,9 @@ sliderShow.append(extra);
 sliderContainer.append(sliderShow);
 container.append(sliderContainer);
 
-
 // right container
 let divContainer = document.createElement("div");
 divContainer.classList.add("col-12", "col-md-5");
-
 let infoContainer = document.createElement("div");
 infoContainer.classList.add("col-12");
 
@@ -76,7 +75,44 @@ infoContainer.append(nameP);
 infoContainer.append(stadiumP);
 divContainer.append(infoContainer);
 
-main.setAttribute("data-index", "0");
+function sliderJump(i) {
+    let currIndex = parseInt(main.getAttribute("data-index"));
+    let currElement = document.createElement("div");
+    currElement.classList.add("d-flex", "justify-content-center");
+    currElement.innerHTML = 
+    `
+        <img class="col-8" src="${teams[currIndex].pictureUrl}">
+    `
+
+    let nextIndex = i;
+    let nextElement = document.createElement("div");
+    nextElement.classList.add("d-flex", "justify-content-center");
+    nextElement.innerHTML = 
+    `
+        <img class="col-8" src="${teams[nextIndex].pictureUrl}">
+    `
+
+    main.setAttribute("data-index", nextIndex.toString());
+    console.log(currIndex);
+    console.log(nextIndex);
+    // return String of left or right for rotating number of array
+    let animatinType = getAnimationType(currIndex, nextIndex, teams.length);
+    animation(currElement, nextElement, animatinType);
+
+}
+
+function animation(currElement, nextElement, animation) {
+    main.innerHTML = "";
+    extra.innerHTML = "";
+
+    main.append(nextElement);
+    extra.append(currElement);
+}
+
+function getAnimationType(curr, next, len) {
+    let distance = curr - next;
+    return ((distance < 0 && Math.abs(distance) > len / 2) || (distance > 0 && Math.abs(distance) < len / 2)) ? "left" : "right";
+}
 
 function createButtons() {
     let btnContainer = document.createElement("div");
@@ -90,11 +126,16 @@ function createButtons() {
 
         btnDiv.append(btn);
         btnContainer.append(btnDiv);
+
+        btn.addEventListener("click", function() {
+            sliderJump(i);
+        });
     }
     divContainer.append(btnContainer);
 }
 
 createButtons();
+
 container.append(divContainer);
 outer.append(container);
 target.append(outer);
