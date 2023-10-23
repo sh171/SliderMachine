@@ -1,11 +1,11 @@
 # Slider Machine
 
-In this project, I learned DOM more and addEventListener() method for creating some sliders. The method can recognize user actions on the interface and process datas.
+The Slider Machine serves as an exploration into the deeper intricacies of the Document Object Model (DOM) and the utilization of the addEventListener() method. Through this project, I've honed the capability to dynamically create sliders and understand user interactions on a GUI, subsequently processing the related data.
 
 ## Description
+The application's interface is bifurcated into two distinct layouts:
 
-On the left layout has a sllider function. 
-On the right layout has a information section and buttons. 
-The slider moves based on the correspoing number and the baseball team is displayed when user push the buttons in the right layout.
+- Left Layout: Features a dynamic slider function. The slider's position adjusts based on corresponding number inputs.
+- Right Layout: Houses an informational section accompanied by actionable buttons. When users interact with these buttons, a specific baseball team is showcased based on the designated slider's position.
 
 Project link: https://sh171.github.io/SliderMachine/
